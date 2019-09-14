@@ -1,0 +1,155 @@
+<form>
+  <label>AWS S3 Bucket Report</label>
+  <fieldset submitButton="false">
+    <input type="time" token="field1" searchWhenChanged="true">
+      <label>Time Range</label>
+      <default>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="dropdown" token="bucket" searchWhenChanged="true">
+      <label>Bucket</label>
+      <fieldForLabel>bucket</fieldForLabel>
+      <fieldForValue>bucket</fieldForValue>
+      <search>
+        <query>index=main | table bucket | dedup bucket | sort bucket</query>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </search>
+      <choice value="*">ANY</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+    </input>
+    <input type="dropdown" token="http_status" searchWhenChanged="true">
+      <label>HTTP Status</label>
+      <choice value="http_status=*">Any</choice>
+      <choice value="( http_status=2* OR http_status=3* )">2xx/3xx</choice>
+      <choice value="( http_status=4* OR http_status=5* )">4xx/5xx</choice>
+      <default>http_status=*</default>
+      <initialValue>http_status=*</initialValue>
+    </input>
+    <input type="text" token="remote_ip" searchWhenChanged="true">
+      <label>IP (This can be a substring)</label>
+      <default>*</default>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <title>HTTP Status Over Time</title>
+      <chart>
+        <search>
+          <query>index=main bucket="$bucket$" $http_status$ remote_ip="$remote_ip$*" http_status != "-"
+| eval http_status = case(like(http_status, "2%"), "2xx", like(http_status, "3%"), "3xx", like(http_status, "4%"), "4xx", like(http_status, "5%"), "5xx", true(), "OTHER")
+| timechart count by http_status</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisTitleX.visibility">collapsed</option>
+        <option name="charting.axisTitleY.text">Num Requests</option>
+        <option name="charting.chart">area</option>
+        <option name="charting.chart.nullValueMode">zero</option>
+        <option name="charting.chart.showDataLabels">minmax</option>
+        <option name="charting.chart.stackMode">stacked</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.legend.placement">bottom</option>
+        <option name="refresh.display">progressbar</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Top IPs</title>
+      <table>
+        <search>
+          <query>index=main bucket="$bucket$" $http_status$ remote_ip="$remote_ip$*"
+| stats count by remote_ip | sort -count
+| rename remote_ip as IP
+| rename count as Count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">10</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Top Requested Objects</title>
+      <table>
+        <search>
+          <query>index=main bucket="$bucket$" $http_status$ remote_ip="$remote_ip$*"
+| eval url = bucket + "/" + key
+| stats count by url | sort -count
+| rename url as URL
+| rename count as Count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">10</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Top User Agents</title>
+      <table>
+        <search>
+          <query>index=main bucket="$bucket$" $http_status$ remote_ip="$remote_ip$*"
+| eval user_agent = substr(user_agent, 1, 80)
+| stats count by user_agent | sort -count
+| rename user_agent as "User Agent"
+| rename count as Count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">10</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+    <panel>
+      <title>Top S3 Operations</title>
+      <table>
+        <search>
+          <query>index=main bucket="$bucket$" $http_status$ remote_ip="$remote_ip$*"
+| stats count by operation | sort -count
+| rename operation as "Operation"
+| rename count as Count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">10</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+</form>
