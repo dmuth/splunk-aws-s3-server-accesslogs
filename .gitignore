@@ -1,0 +1,11 @@
+
+# Vim
+*~
+*.swp
+
+# Splunk data and logs
+data/
+logs/
+
+
+
