@@ -8,4 +8,5 @@ data/
 logs/
 
 
+!app/data/
 
