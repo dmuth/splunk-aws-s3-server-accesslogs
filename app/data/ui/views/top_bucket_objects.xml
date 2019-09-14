@@ -1,0 +1,57 @@
+<form>
+  <label>Top Bucket Objects Requested</label>
+  <fieldset submitButton="false">
+    <input type="time" token="field1" searchWhenChanged="true">
+      <label>Time Range</label>
+      <default>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="dropdown" token="bucket" searchWhenChanged="true">
+      <label>Bucket</label>
+      <fieldForLabel>bucket</fieldForLabel>
+      <fieldForValue>bucket</fieldForValue>
+      <search>
+        <query>index=main | table bucket | dedup bucket | sort bucket</query>
+        <earliest>-7d@h</earliest>
+        <latest>now</latest>
+      </search>
+      <choice value="*">ANY</choice>
+      <default>*</default>
+      <initialValue>*</initialValue>
+    </input>
+    <input type="dropdown" token="http_status" searchWhenChanged="true">
+      <label>HTTP Status</label>
+      <choice value="http_status=*">Any</choice>
+      <choice value="( http_status=2* OR http_status=3* )">2xx/3xx</choice>
+      <choice value="( http_status=4* OR http_status=5* )">4xx/5xx</choice>
+      <default>http_status=*</default>
+      <initialValue>http_status=*</initialValue>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <table>
+        <search>
+          <query>index=main bucket="$bucket$" $http_status$
+| eval url = bucket + "/" + key
+| stats count by url | sort -count
+| rename url as Key
+| rename count as Count</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+</form>
