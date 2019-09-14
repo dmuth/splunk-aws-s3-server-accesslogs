@@ -36,21 +36,6 @@ log into Splunk with the credentials you specified when starting it, and you sho
 able to search for data or view reports in dashbaords.
 
 
-## TODO
-
-I am still building this app out, so this is my quick and dirty TODO list:
-
-- Dashbaords:
-   - Top referrer per bucket
-   - Top key per bucket
-   - Top requester per bucket
-   - Top operation per bucket
-   - HTTP Status per bucket over time
-- Clone the `go.sh` script from one of my other Splunk Labs and put this into its own app in Splunk
-- Create custom navivation
-- Update README
-
-
 ## Known Issues
 
 
