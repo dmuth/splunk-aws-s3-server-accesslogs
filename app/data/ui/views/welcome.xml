@@ -1,0 +1,68 @@
+<dashboard>
+  <label>Welcome To Splunk AWS S3 Logs!</label>
+  <row>
+    <panel>
+      <title>Dashboards of Interest</title>
+      <html>
+
+<p>
+This app is the quick and easy way to get reports, dashboards, and analytics on your AWS S3 Access Logs.  
+  
+</p>
+<br/>
+
+<ul>
+ <li>
+  <a href="/app/splunk-aws-s3-logs/aws_s3_bucket_report">AWS S3 Bucket Report Dashboard</a>
+ </li>
+ <ul>
+  <li>Dashboard of top IPs, HTTP Status Codes, User Agents, etc. for 1 dashboard or all of them.</li>
+ </ul>
+
+ <li>
+  <a href="/app/splunk-aws-s3-logs/top_bucket_ips">Top IPs that accessed a bucket</a>
+ </li>
+
+ <li>
+  <a href="/app/splunk-aws-s3-logs/top_bucket_objects">Top objects accessed in a bucket</a>
+ </li>
+
+ <li>
+  <a href="/app/splunk-aws-s3-logs/top_operations">Top operations on objects in a bucket</a>
+ </li>
+
+ <li>
+  <a href="/app/splunk-aws-s3-logs/top_user_agents">Top user agents that accessed a bucket</a>
+ </li>
+
+</ul>
+
+  </html>
+    </panel>
+    <panel>
+      <title>Need Help?</title>
+      <html>
+
+<ul>
+  <li>
+            <a href="https://github.com/dmuth/splunk-lab">Splunk Lab on GitHub</a>
+          </li>
+  <li>
+    <a href="https://github.com/dmuth/splunk-aws-s3-server-accesslogs">This app on GitHub</a>    
+  </li>
+  <li>
+            <a href="https://github.com/dmuth/splunk-aws-s3-server-accesslogs/issues">Open an Issue in GitHub</a>
+          </li>
+  <li>
+            <a href="https://twitter.com/dmuth">Say "hi" on Twitter!</a>
+          </li>
+</ul>
+
+
+
+  </html>
+    </panel>
+  </row>
+
+
+</dashboard>

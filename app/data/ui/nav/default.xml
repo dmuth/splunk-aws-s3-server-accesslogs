@@ -1,0 +1,6 @@
+<nav search_view="search">
+  <view name="welcome" default="true" />
+  <view name="fitbit_heartrate_report" />
+  <view name="search"  />
+  <view name="dashboards" />
+</nav>
