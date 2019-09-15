@@ -30,7 +30,7 @@ Naturally, this is highly dependent on how you're storing logs.
 
 Next, start up Splunk Lab with this command:
 
-- `./go.sh`
+- `bash <(curl -s https://raw.githubusercontent.com/dmuth/splunk-aws-s3-server-accesslogs/master/go.sh)`
 
 The script will guide you through various settings you can send to Splunk Lab.
 
