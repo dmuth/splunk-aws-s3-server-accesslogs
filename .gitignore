@@ -4,7 +4,7 @@
 *.swp
 
 # Splunk data and logs
-data/
+splunk-data/
 logs/
 
 
