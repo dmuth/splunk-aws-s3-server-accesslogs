@@ -1,0 +1,11 @@
+#
+# Build our container that runs Splunk Lab with the AWS S3 Logs addin
+#
+
+FROM dmuth1/splunk-lab
+
+#
+# Copy in our application
+#
+COPY app/ /opt/splunk/etc/apps/splunk-aws-s3-logs/default
+
