@@ -27,7 +27,7 @@ Naturally, this is highly dependent on how you're storing logs.
 
 Next, start up Splunk Lab with this command:
 
-- `bash <(curl -s https://raw.githubusercontent.com/dmuth/splunk-lab/master/go.sh)`
+- `./go.sh`
 
 The script will guide you through various settings you can send to Splunk Lab.
 
