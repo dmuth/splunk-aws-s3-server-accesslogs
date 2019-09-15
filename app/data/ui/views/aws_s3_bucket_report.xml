@@ -8,6 +8,15 @@
         <latest>now</latest>
       </default>
     </input>
+    <input type="dropdown" token="span">
+      <label>Span</label>
+      <choice value="1h">1 Hour</choice>
+      <choice value="6h">6 Hours</choice>
+      <choice value="1d">1 Day</choice>
+      <choice value="1w">1 Week</choice>
+      <default>1h</default>
+      <initialValue>1h</initialValue>
+    </input>
     <input type="dropdown" token="bucket" searchWhenChanged="true">
       <label>Bucket</label>
       <fieldForLabel>bucket</fieldForLabel>
@@ -41,7 +50,7 @@
         <search>
           <query>index=main bucket="$bucket$" $http_status$ remote_ip="$remote_ip$*" http_status != "-"
 | eval http_status = case(like(http_status, "2%"), "2xx", like(http_status, "3%"), "3xx", like(http_status, "4%"), "4xx", like(http_status, "5%"), "5xx", true(), "OTHER")
-| timechart count by http_status</query>
+| timechart span=$span$ count by http_status</query>
           <earliest>$field1.earliest$</earliest>
           <latest>$field1.latest$</latest>
           <sampleRatio>1</sampleRatio>
