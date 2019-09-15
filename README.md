@@ -56,6 +56,12 @@ A: You'll need to increase that value in `app/limits.conf`. You can <a href="htt
 - <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/LogFormat.html">AWS S3 Server Access Log Format</a>
 
 
+## Credits
+
+- <a href="http://patorjk.com/software/taag/#p=display&h=0&v=0&f=Standard&t=Splunk%20%0AAWS%20S3%20Logs">This ASCII Text Generator</a>
+- <a href="http://www.splunk.com/">Splunk</a> - For having a fantastic analytics platform
+
+
 ## Bugs/Contact
 
 Here's how to get in touch with me:
