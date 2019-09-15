@@ -44,6 +44,13 @@ able to search for data or view reports in dashbaords.
 A: You'll need to increase that value in `app/limits.conf`. You can <a href="https://answers.splunk.com/answers/661864/regex-data-parsing-using-delimiter-comma-has-excee.html">read more about that here</a>.
 
 
+## Development
+
+- `./bin/devel.sh splunk`
+- `./bin/build.sh`
+- `./bin/push.sh`
+
+
 ## Additional Resources
 
 - <a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/LogFormat.html">AWS S3 Server Access Log Format</a>
