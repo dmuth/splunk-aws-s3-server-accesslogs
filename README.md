@@ -5,6 +5,9 @@
 This an app I built using <a href="https://github.com/dmuth/splunk-lab">Splunk Lab</a>
 to extract data from AWS S3 Server Access Logs and use that data for graphs and analysis.
 
+<a href="img/aws-s3-bucket-report.png"><img src="img/aws-s3-bucket-report.png" width="400" /></a>
+<a href="img/top-bucket-objects.png"><img src="img/top-bucket-objects.png" width="400" /></a>
+
 
 ## Getting your AWS S3 Server Access Logs
 
